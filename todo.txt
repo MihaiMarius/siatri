@@ -1,0 +1,15 @@
+it1. (30.12.2013)
+___
+1 - 28/15:00 tiby
+2,3 - 30/10:00
+
+
+goals
+_____
+1. system isntall
+2. ratchet php live server integration
+3. twitter intergration  ( login, tweet, get friends tweets)
+4. manual script for getting 1 unique question from dbpedia
+5. iron integration (background processing)
+6. top 15 with semantic tags embedded
+7. random.org usage (low priority)
