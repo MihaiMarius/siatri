@@ -10,7 +10,7 @@
 	"repositories": [
 	    {
 	        "type": "vcs",
-	        "url": "https://github.com/sidneywidmer/latchet"
+	        "url": "https://github.com/thetiby/Latchet"
 	    }
 	],
 	"autoload": {
