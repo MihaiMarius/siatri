@@ -4,8 +4,15 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*"
+		"laravel/framework": "4.1.*",
+		"sidney/latchet": "dev-master"
 	},
+	"repositories": [
+	    {
+	        "type": "vcs",
+	        "url": "https://github.com/sidneywidmer/latchet"
+	    }
+	],
 	"autoload": {
 		"classmap": [
 			"app/commands",
