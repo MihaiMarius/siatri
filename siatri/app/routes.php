@@ -11,7 +11,27 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
+// Route::get('/', function()
+// {
+// 	return View::make('hello');
+// });
+
+// Route::get('/', 'HomeController@index');
+
+Route::get('/', 'TwitterController@index');
+Route::get('/twitter_login', 'TwitterController@login');
+Route::get('/twitter_auth', 'TwitterController@auth');
+Route::get('/gamelobby', 'TwitterController@gamelobbyInit');
+
+Route::post('/sendInvitation', 'TwitterController@sendInvitation');
+
+//Test Routes
+Route::get('/allusers', function(){
+
+	$users = User::all();
+
+	foreach ($users as $user ) {
+		var_dump($user->oauth_uid);
+		var_dump($user->username);
+	}
 });

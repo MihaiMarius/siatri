@@ -1,0 +1,7 @@
+User users;
+	id increments; primary;
+    oauth_provider string 10; 
+    oauth_uid text;
+    oauth_token text;
+    oauth_secret text;
+    username text;

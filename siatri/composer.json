@@ -4,8 +4,16 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*"
+		"laravel/framework": "4.1.*",
+		"raahul/larryfour": "1.*",
+		"philo/laravel-twitter": "dev-master"
 	},
+	"repositories": [
+         {
+	         "type": "vcs",
+	         "url": "https://github.com/MihaiMarius/Laravel-Twitter"
+         }
+    ],
 	"autoload": {
 		"classmap": [
 			"app/commands",
@@ -13,7 +21,8 @@
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
-			"app/tests/TestCase.php"
+			"app/tests/TestCase.php",
+			"app/classes"
 		]
 	},
 	"scripts": {

@@ -1,0 +1,38 @@
+*,body{
+	margin:0;
+	padding: 0;
+}
+
+.twitterLoginContainer{
+    width:158px;
+    height:28px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin:-100px 0 0 -150px;
+}
+
+a.lnkTwitterLogin{
+	 width:158px;
+    height:28px;
+}
+
+.spinner {
+  display: inline-block;
+  opacity: 0;
+  max-width: 0;
+
+  -webkit-transition: opacity 0.25s, max-width 0.45s; 
+  -moz-transition: opacity 0.25s, max-width 0.45s;
+  -o-transition: opacity 0.25s, max-width 0.45s;
+  transition: opacity 0.25s, max-width 0.45s; /* Duration fixed since we animate additional hidden width */
+}
+
+.has-spinner.active {
+  cursor:progress;
+}
+
+.has-spinner.active .spinner {
+  opacity: 1;
+  max-width: 50px; /* More than it will ever come, notice that this affects on animation duration */
+}
