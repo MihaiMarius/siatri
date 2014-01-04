@@ -1,15 +1,38 @@
+it2. (2.01.2014)
+___
+2, 3
+
 it1. (30.12.2013)
 ___
-1 - 28/15:00 tiby
+1 - 28/15:00 tiby 
 2,3 - 30/10:00
+- basic socket chat without laravel support
+- twitter 75% login
+
 
 
 goals
 _____
-1. system isntall
-2. ratchet php live server integration
+1. system isntall -done
+
+2. ratchet php live server integration - done
+2.1 latchet (laravel rathcet) 
+2.01 dbpedia communication/SPARQL 
+
 3. twitter intergration  ( login, tweet, get friends tweets)
-4. manual script for getting 1 unique question from dbpedia
+3.1 laravel oauth
+3.2 secure dummy room with twitter 
+3.3 fetch followers from twitter
+3.4 tweet invite #siatri @friendaUserName: dummy room link 
+
+3.5 integrate auth with chat 
+3.5.1 basic views
+
+4.0  game logic architecure 
+4.1 game logic basic implementation
+
+4.2 manual script for getting 1 unique question from dbpedia
+
 5. iron integration (background processing)
 6. top 15 with semantic tags embedded
 7. random.org usage (low priority)
