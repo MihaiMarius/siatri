@@ -6,14 +6,22 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"sidney/latchet": "dev-master",
-		"react/zmq" : "dev-master"
+		"react/zmq" : "dev-master",
+		"raahul/larryfour": "1.*",
+		"philo/laravel-twitter": "dev-master"
 	},
 	"repositories": [
 	    {
 	        "type": "vcs",
 	        "url": "https://github.com/thetiby/Latchet"
-	    }
+	    },
+	    {
+	         "type": "vcs",
+	         "url": "https://github.com/MihaiMarius/Laravel-Twitter"
+         }
 	],
+
+	},
 	"autoload": {
 		"classmap": [
 			"app/commands",
@@ -22,7 +30,8 @@
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php",
-			"app/socket"
+			"app/socket",
+			"app/classes"
 		]
 	},
 	"scripts": {

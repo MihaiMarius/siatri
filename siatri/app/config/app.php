@@ -107,7 +107,9 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Sidney\Latchet\LatchetServiceProvider'
-	),
+		'Raahul\LarryFour\LarryFourServiceProvider',
+		'Philo\Twitter\TwitterServiceProvider',
+		),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -173,6 +175,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Latchet'   	  => 'Sidney\Latchet\LatchetFacade',
-	),
+		'Twitter'		  => 'Philo\Twitter\Facades\Twitter',
+		),
 
 );
