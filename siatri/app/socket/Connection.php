@@ -5,7 +5,7 @@ class Connection extends BaseConnection {
 
 	public function open($connection)
 	{
-
+		echo "connection established";
 	}
 
 	public function close($connection)
