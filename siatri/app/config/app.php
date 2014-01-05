@@ -106,9 +106,9 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		'Sidney\Latchet\LatchetServiceProvider'
+		'Sidney\Latchet\LatchetServiceProvider',
 		'Raahul\LarryFour\LarryFourServiceProvider',
-		'Philo\Twitter\TwitterServiceProvider',
+		'Philo\Twitter\TwitterServiceProvider'
 		),
 
 	/*

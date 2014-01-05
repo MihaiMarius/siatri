@@ -20,8 +20,6 @@
 	         "url": "https://github.com/MihaiMarius/Laravel-Twitter"
          }
 	],
-
-	},
 	"autoload": {
 		"classmap": [
 			"app/commands",
