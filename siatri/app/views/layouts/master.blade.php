@@ -11,6 +11,7 @@
 	<!-- master scripts -->
 	<script type="text/javascript" src="js/jquery-2.0.3.js" ></script>
 	<script type="text/javascript" src="js/app.js" ></script>
+	<script type="text/javascript" src="js/autobahn.min.js"></script>
 
 	@yield('externalFiles')
 
