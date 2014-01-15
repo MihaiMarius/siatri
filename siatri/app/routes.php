@@ -12,12 +12,12 @@
 */
 
 
-Route::get('/push/{message}', 'Pusher@push');
 Latchet::connection('Connection');
-Latchet::topic('room/{roomID}', 'TestTopic');
+Latchet::topic('room/{hostID}', 'GameRoom');
 
+Route::get('/','SiteController@home');
 
-Route::get('/', 'TwitterController@index');
+Route::get('/login', 'TwitterController@index');
 Route::get('/twitter_login', 'TwitterController@login');
 Route::get('/twitter_auth', 'TwitterController@auth');
 Route::get('/gamelobby', 'TwitterController@gamelobbyInit');

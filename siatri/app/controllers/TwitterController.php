@@ -2,14 +2,14 @@
 
 
 class TwitterController extends BaseController {
-	public $layout = 'layouts/master';
+
 
 	public function index()
 	{
 		if (SessionManager::isAnyUserLoggedin()) {
 			return Redirect::to('/gamelobby'); 
 		}else{
-			$this->layout->content = View::make('login.index');
+			return View::make('website.login');
 		}		
 	}
 
@@ -71,7 +71,7 @@ class TwitterController extends BaseController {
 			if(!is_null($user))
 			{
 				$data = array('username'=> $user->username);
-				$this->layout->content = View::make('game.index', $data);
+				return View::make('website.invite', $data);
 			}else{
 				return Redirect::to('/');
 			}
