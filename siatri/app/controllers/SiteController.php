@@ -5,6 +5,6 @@ class SiteController extends BaseController {
 
 	public function home()
 	{
-        Session::clear();
+        
 	}
 }

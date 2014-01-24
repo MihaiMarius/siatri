@@ -5,7 +5,9 @@ class GameRoom extends BaseTopic {
 
 	public function subscribe($connection, $topic)
 	{
-
+		echo "\nsubscribed";
+		// var_dump($connection->WAMP);
+		// var_dump($topic);
 	}
 
 	public function publish($connection, $topic, $message, array $exclude, array $eligible)
@@ -15,7 +17,7 @@ class GameRoom extends BaseTopic {
 		$this->broadcast($topic, array('from' => 'broadcast: '.$connection->WAMP->sessionId, 'msg' => $message));
 		
 		// push
-		Latchet::publish($topic->getId(), array('from' => 'push: '.$connection->WAMP->sessionId, 'msg' => $message));
+		// Latchet::publish($topic->getId(), array('from' => 'push: '.$connection->WAMP->sessionId, 'msg' => $message));
 	}
 
 	public function call($connection, $id, $topic, array $params)

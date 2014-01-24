@@ -15,8 +15,17 @@
 </head>
 
 <body>
+    @if (!$errors->isEmpty())
+        <span class="alert alert-info"> {{$errors->first('info') }} </span>
+    @endif
     <section class="intro">
         <div class="intro-text">
+            @if (Session::has('user'))
+                <a class="pull-right btn btn-info" href="/logout">Logout</a>
+            @else
+                <a class="pull-right btn btn-info" href="/login">Login</a>
+            @endif
+
             <h1 class="logo">
                 <span class="fa-comments fa-question color midnight-blue">siatri</span>
             </h1>
@@ -25,8 +34,10 @@
     </section>
     <section class="content">
         @section('content')
-            This is the default content shown {{-- (notice the @show) --}} if not overriden in child templates. <br>
-            Session cleared.
+            This is the default content shown  if not overriden in child templates. <br>
+            @if (Session::has('user'))
+            Hello {{ Session::get('user') }}
+            @endif
         @show
     </section>
     

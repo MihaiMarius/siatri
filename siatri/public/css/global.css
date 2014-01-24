@@ -88,7 +88,9 @@ body {
 .color.concrete{color:#95A5A6;}
 .color.asbestos{color:#7F8C8D;}
 
-
+.content{
+  padding: 20px;
+}
 
 
 
