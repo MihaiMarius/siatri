@@ -3,6 +3,8 @@ use \Sidney\Latchet\BaseTopic;
 
 class GameRoom extends BaseTopic {
 
+	private $users;
+
 	public function subscribe($connection, $topic)
 	{
 		echo "\nsubscribed";
