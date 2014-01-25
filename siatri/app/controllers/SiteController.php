@@ -19,7 +19,6 @@ class SiteController extends BaseController {
 
 	public function gamecreation(){
 		$user = SessionManager::getAuthTwitterUser();
-
 		if(!is_null($user))
 		{
 			$data = array('username'=> $user->username);
@@ -27,6 +26,16 @@ class SiteController extends BaseController {
 		}else{
 			return Redirect::to('/');
 		}
+
+	}
+
+	public function getGameHistory(){
+		return Response::json(array("success" => true));
+
+	}
+
+	public function getOtherPlayers(){
+		return Response::json(array("success" => true));
 
 	}
 }

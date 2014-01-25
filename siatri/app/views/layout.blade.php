@@ -15,6 +15,14 @@
 </head>
 
 <body>
+    <!-- ALERT -->
+    <div class="divAlert" style="display:none">
+      <div class="alert" >
+        <button type="button" class="close" aria-hidden="true" onclick="hideBoostrapAlert();return false;">&times;</button>
+        <div class='message'></div>
+      </div>
+    </div>
+    <!-- ALERT -->
 
     @if (!$errors->isEmpty())
     <span class="alert alert-info"> {{$errors->first('info') }} </span>
@@ -43,7 +51,9 @@
     
     {{ HTML::script('js/lib/jquery-2.0.3.js') }} 
     {{ HTML::script('js/lib/knockout-3.0.0.debug.js') }} 
+    {{ HTML::script('js/lib/bootstrap.min.js') }} 
     {{ HTML::script('js/global.js') }}
+    {{ HTML::script('js/enum.js') }}
     @yield('scripts')
 
 </body>

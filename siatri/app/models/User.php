@@ -27,7 +27,9 @@ class User extends Eloquent
                     $objUser = (object)$twitterUser;
                     $friendDetails = array(
                         "user_id" => $objUser->id,
-                        "screen_name" => $objUser->screen_name
+                        "username" => $objUser->screen_name,
+                        "profileImageSrc" => $objUser->profile_image_url,
+                        "twitterUrl" => 'www.twitter.com/'.$objUser->screen_name
                         );
                     array_push($fullFriendList, (object)$friendDetails);
                 }
@@ -55,7 +57,9 @@ class User extends Eloquent
                     $objUser = (object)$twitterUser;
                     $followerDetails = array(
                         "user_id" => $objUser->id,
-                        "screen_name" => $objUser->screen_name
+                        "username" => $objUser->screen_name,
+                        "profileImageSrc" => $objUser->profile_image_url,
+                        "twitterUrl" => 'www.twitter.com/'.$objUser->screen_name
                         );
                     array_push($fullFollowerList, (object)$followerDetails);
                 }

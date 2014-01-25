@@ -47,6 +47,12 @@ Route::get('/top', 'SiteController@topPlayers');
 Route::get('/rules', 'SiteController@rules');
 Route::get('/gamecreation', 'SiteController@gamecreation');
 
+Route::get('/getFriendsList', 'TwitterController@getFriendsList');
+Route::get('/getHostDetails', 'TwitterController@getHostDetails');
+Route::get('/getGameHistory', 'SiteController@getGameHistory');
+Route::get('/getOtherPlayers', 'SiteController@getOtherPlayers');
+
+
 
 
 //Test Routes
