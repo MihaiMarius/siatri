@@ -10,6 +10,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/*alert style*/
+
+div.divAlert{
+      position: fixed;
+      top: 10px;
+      left: 25%;
+      z-index: 10000000;
+      width: 65%;
+      opacity: .9;
+}
+
 /* own styles*/
 
 .logo .fa-question:before {

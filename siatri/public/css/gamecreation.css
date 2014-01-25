@@ -1,5 +1,5 @@
 .game-creation-panel-friends{
-	width: 300px;
+	width: 380px;
 	position: absolute;
 	right:0;
 	top:0;
@@ -9,16 +9,32 @@
 .welcome{
 	padding : 10px;
 	width:100%;
+	position: relative;
 }
 
 .game-creation-container{
 	width: 100%;
 	box-sizing: border-box;
-	padding-right: 310px;
+	padding-right: 390px;
 	position: relative;
 }
 
 .button-checkbox{
 	float: right;
 	margin: top 7px;
+}
+
+.welcome-user-details{
+	position: absolute;
+	right: 20px;
+	top: 10px;
+
+}
+.points{
+	font-weight: bold;	
+}
+
+.filter-friend{
+	float:right;
+	width:240px;
 }
