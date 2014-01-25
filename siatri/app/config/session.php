@@ -29,7 +29,7 @@ return array(
 	|
 	*/
 
-	'lifetime' => 120,
+	'lifetime' => 0,
 
 	'expire_on_close' => true,
 
@@ -122,7 +122,7 @@ return array(
 	|
 	*/
 
-	'domain' => null,
+	'domain' => 'www.siatri.com',
 
 	/*
 	|--------------------------------------------------------------------------
