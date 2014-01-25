@@ -15,22 +15,26 @@
 Latchet::connection('Connection');
 Latchet::topic('room/{hostID}', 'GameRoom');
 
-Route::get('/','SiteController@home');
+Route::get('/resetSession','SiteController@home');
 
-Route::get('/login', 'TwitterController@index');
+Route::get('/', 'TwitterController@index');
 Route::get('/twitter_login', 'TwitterController@login');
 Route::get('/twitter_auth', 'TwitterController@auth');
-Route::get('/gamelobby', 'TwitterController@gamelobbyInit');
-
 Route::post('/sendInvitation', 'TwitterController@sendInvitation');
 
+Route::get('/top', 'SiteController@topPlayers');
+Route::get('/rules', 'SiteController@rules');
+Route::get('/gamecreation', 'SiteController@gamecreation');
+
+
+
 //Test Routes
-Route::get('/allusers', function(){
+// Route::get('/allusers', function(){
 
-	$users = User::all();
+// 	$users = User::all();
 
-	foreach ($users as $user ) {
-		var_dump($user->oauth_uid);
-		var_dump($user->username);
-	}
-});
+// 	foreach ($users as $user ) {
+// 		var_dump($user->oauth_uid);
+// 		var_dump($user->username);
+// 	}
+// });

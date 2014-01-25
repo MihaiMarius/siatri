@@ -1,0 +1,9 @@
+
+div.top-wrapper{
+	padding: 10px 25px 0 25px;
+	margin: 10px;
+}
+span.user-profile-img > img{
+	width: 25px;
+	height: 25px;
+}

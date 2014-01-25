@@ -1,13 +1,22 @@
 @extends('website.layout')
 
 @section('title')
-    Siatri - Login
+Siatri - Login
 @stop
 
 @section('content')
-    <div class="twitterLoginContainer">
-    	<a id="twitterSignIn" class="lnkTwitterLogin" href="twitter_login">
-    			<img src="img/sign-in-with-twitter-gray.png"/>
-    	</a>
-    </div>
+
+<div id="top" class="header">
+	<div class="vert-text">
+		<h1>Welcome to SIATRI</h1>
+		<h3>You like challenges ? Sign in and challenge your friends!</h3>
+		<a class="btn btn-success btn-lg " role="button" href="twitter_login"><i class="fa fa-twitter fa-3x"></i> <span class="sign-in-text">Sign in with Twitter</span></a>
+	</div>
+</div>
+@stop
+
+@section('menubuttons')
+<span class="buttonsContainer">
+	<a class="btn btn-success btn-xs" role="button" href="/top"><i class="fa fa-list fa-lg"></i> <span >Top 15</span></a>	
+</span>
 @stop

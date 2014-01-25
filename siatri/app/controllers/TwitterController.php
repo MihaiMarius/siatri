@@ -7,7 +7,7 @@ class TwitterController extends BaseController {
 	public function index()
 	{
 		if (SessionManager::isAnyUserLoggedin()) {
-			return Redirect::to('/gamelobby'); 
+			return Redirect::to('/gamecreation'); 
 		}else{
 			return View::make('website.login');
 		}		
@@ -37,7 +37,7 @@ class TwitterController extends BaseController {
 			}else{	
 				$this->saveAuthentificatedUserDetails($accessToken);
 				SessionManager::setTwitterUserIdSession($accessToken->user_id);
-				return Redirect::to('/gamelobby');
+				return Redirect::to('/gamecreation');
 			}
 		}
 
@@ -65,17 +65,7 @@ class TwitterController extends BaseController {
 			}		
 		}
 
-		public function gamelobbyInit(){
-			$user = SessionManager::getAuthTwitterUser();
-
-			if(!is_null($user))
-			{
-				$data = array('username'=> $user->username);
-				return View::make('website.invite', $data);
-			}else{
-				return Redirect::to('/');
-			}
-		}
+		
 
 		public function sendInvitation(){
 			$user = SessionManager::getAuthTwitterUser();
