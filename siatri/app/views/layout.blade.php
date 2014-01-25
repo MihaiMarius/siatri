@@ -34,10 +34,10 @@
     </section>
     <section class="content">
         @section('content')
-        This is the default content shown  if not overriden in child templates. <br>
-        @if (Session::has('user'))
-        Hello {{ Session::get('user') }}
-        @endif
+            This is the default content shown  if not overriden in child templates. <br>
+            @if (Session::has('user'))
+            Hello {{ Session::get('user') }}
+            @endif
         @show
     </section>
     

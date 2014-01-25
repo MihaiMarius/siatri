@@ -10,7 +10,7 @@ Siatri - Login
 	<div class="vert-text">
 		<h1>Welcome to SIATRI</h1>
 		<h3>You like challenges ? Sign in and challenge your friends!</h3>
-		<a class="btn btn-success btn-lg " role="button" href="twitter_login"><i class="fa fa-twitter fa-3x"></i> <span class="sign-in-text">Sign in with Twitter</span></a>
+		<a class="btn btn-success btn-lg " role="button" href="/login"><i class="fa fa-twitter fa-3x"></i> <span class="sign-in-text">Sign in with Twitter</span></a>
 	</div>
 </div>
 @stop

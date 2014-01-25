@@ -38,7 +38,7 @@ Route::get('/','SiteController@home');
 Route::get('/logout', 'TwitterController@logout');
 
 
-Route::get('/twitter_login', 'TwitterController@login');
+Route::get('/login', 'TwitterController@login');
 Route::get('/twitter_auth', 'TwitterController@auth');
 
 Route::post('/sendInvitation', 'TwitterController@sendInvitation');

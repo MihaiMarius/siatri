@@ -1,4 +1,4 @@
-@extends('game.layout')
+@extends('website.layout')
 @section('title')
 Siatri - Game Invitation Screen
 @stop

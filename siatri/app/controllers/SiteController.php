@@ -3,6 +3,10 @@
 class SiteController extends BaseController {
 	public function home()
 	{
+		if (SessionManager::isAnyUserLoggedin())
+			return Redirect::to('/gamecreation');
+		else
+			return View::make('website.login');
 	}
 
 	public function topPlayers(){
@@ -19,7 +23,7 @@ class SiteController extends BaseController {
 		if(!is_null($user))
 		{
 			$data = array('username'=> $user->username);
-			return View::make('game.creation', $data);
+			return View::make('website.creation', $data);
 		}else{
 			return Redirect::to('/');
 		}
