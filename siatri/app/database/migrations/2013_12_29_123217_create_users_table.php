@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration {
             $table->text('oauth_token');
             $table->text('oauth_secret');
             $table->text('username');
+            $table->string('wampSession',20)->nullable();
         });
     }
 

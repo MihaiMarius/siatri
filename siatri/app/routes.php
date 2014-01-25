@@ -10,16 +10,37 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+use Illuminate\Support\MessageBag;
 
+Route::filter('check', function($route, $request)
+{
+    if(!SessionManager::isAnyUserLoggedin()){ // || the user is not allowed in this game
+        Session::put('redirect', $request->path());
+        return Redirect::to('/login')->withErrors(
+            new MessageBag(array(
+                'info' => 'You must be logged into the Siatri appliation via Twitter first!'
+            )
+        ));
+    }
+});
+
+Route::group(array('prefix' => 'game', 'before' => 'check'), function()
+{
+    Route::post('syncWampSession','GameController@syncWampSession');
+    Route::get('lobby/{host}','GameController@lobby');
+});
 
 Latchet::connection('Connection');
-Latchet::topic('room/{hostID}', 'GameRoom');
+Latchet::topic('/game/{host}', 'GameRoom');
 
-Route::get('/resetSession','SiteController@home');
 
-Route::get('/', 'TwitterController@index');
+Route::get('/','SiteController@home');
+Route::get('/logout', 'TwitterController@logout');
+
+
 Route::get('/twitter_login', 'TwitterController@login');
 Route::get('/twitter_auth', 'TwitterController@auth');
+
 Route::post('/sendInvitation', 'TwitterController@sendInvitation');
 
 Route::get('/top', 'SiteController@topPlayers');

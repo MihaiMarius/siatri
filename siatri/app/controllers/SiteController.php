@@ -3,7 +3,6 @@
 class SiteController extends BaseController {
 	public function home()
 	{
-		Session::clear();
 	}
 
 	public function topPlayers(){
@@ -24,5 +23,6 @@ class SiteController extends BaseController {
 		}else{
 			return Redirect::to('/');
 		}
+
 	}
 }

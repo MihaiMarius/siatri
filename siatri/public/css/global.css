@@ -88,11 +88,16 @@ body {
 .color.concrete{color:#95A5A6;}
 .color.asbestos{color:#7F8C8D;}
 
+
 .buttonsContainer
 {
   position: relative;
   left:80%;
   top:-51px;
+}
+
+.content{
+  padding: 20px;
 }
 
 
