@@ -36,6 +36,7 @@ Latchet::topic('/game/{host}', 'GameRoom');
 
 Route::get('/','SiteController@home');
 Route::get('/logout', 'TwitterController@logout');
+Route::get('/sparql', 'SemanticController@testSparql');
 
 
 Route::get('/login', 'TwitterController@login');
