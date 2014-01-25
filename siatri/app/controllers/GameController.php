@@ -14,6 +14,9 @@ class GameController extends BaseController {
     public function syncWampSession(){
         if (Request::ajax()){
             $user =  SessionManager::getAuthTwitterUser();
+            $maybeuser = Input::get('whoami');
+            if( $user->username != $maybeuser) 
+                return Response::json(array('msg'=> 'Forbidden'), 403);
             $user->wampSession = Input::get('wampSession');
             if($user->save())
                 return Response::json(array('msg' => 'ok'), 200);
