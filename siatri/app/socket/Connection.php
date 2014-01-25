@@ -5,7 +5,13 @@ class Connection extends BaseConnection {
 
 	public function open($connection)
 	{
-		echo "\nconnection established\n";
+		//in case of a mysql timeout, reconnect
+        //to the database
+        $app = app();
+        $app['db']->reconnect();
+
+
+		echo "\nuser connected\n";
 	}
 
 	public function close($connection)

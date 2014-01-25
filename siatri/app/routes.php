@@ -26,8 +26,8 @@ Route::filter('check', function($route, $request)
 
 Route::group(array('prefix' => 'game', 'before' => 'check'), function()
 {
+    Route::post('syncWampSession','GameController@syncWampSession');
     Route::get('lobby/{host}','GameController@lobby');
-
 });
 
 Latchet::connection('Connection');
