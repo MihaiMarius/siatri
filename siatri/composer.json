@@ -8,7 +8,9 @@
 		"sidney/latchet": "dev-master",
 		"react/zmq" : "dev-master",
 		"raahul/larryfour": "1.*",
-		"philo/laravel-twitter": "dev-master"
+		"philo/laravel-twitter": "dev-master",
+		"semsol/arc2": "dev-master",
+		"alchemyapi/php-sdk": "1.0.*@dev"
 	},
 	"repositories": [
 	    {
