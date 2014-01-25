@@ -28,7 +28,7 @@
         </div>
         @section('menubuttons')
             @if (Session::has('user'))
-            <a class="pull-right btn btn-info" href="/logout">Logout</a>
+            <a class="btn btn-success btn-md" role="button" href="/logout"><i class="fa fa-sign-out fa-lg"></i> <span >Logout</span></a>
             @endif
         @show
     </section>
