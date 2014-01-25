@@ -5,7 +5,7 @@ User users;
     oauth_secret text;
     username text;
     wampSession string 20; nullable;
-    total_score integer; unsigned;
+    total_score integer; unsigned; nullable
 
 Game games; btmc User; 
     active boolean;

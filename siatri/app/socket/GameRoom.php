@@ -11,6 +11,8 @@ class GameRoom extends BaseTopic {
 		// var_dump($connection->WAMP);
 		// var_dump($topic);
 		$user = User::where('wampSession','=', $connection->WAMP->sessionId)->first();
+		if(!$user) $connection->close();
+		
 		$connection->cache = new StdClass;
 		$connection->cache->user = $user;
 		$username = $user->username;
