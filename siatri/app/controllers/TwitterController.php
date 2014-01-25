@@ -50,7 +50,7 @@ class TwitterController extends BaseController {
 	*/
 	private function saveAuthentificatedUserDetails($accessToken){
 		$userExists = count(User::where('oauth_uid', '=', $accessToken->user_id)->get()) > 0;
-		Session::put('user',$accessToken->screen_name);
+		Session::put('user', $accessToken->screen_name);
 		if(!$userExists){
 			$oauth_token = $accessToken->oauth_token;
 			$oauth_token_secret = $accessToken->oauth_token_secret;

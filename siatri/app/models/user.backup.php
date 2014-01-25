@@ -5,14 +5,12 @@ class User extends Eloquent
     protected $table = 'users';
     public $timestamps = false;
 
-    public function games(){
-        return $this->hasMany('User')->withPivot('score');
-    }
-        /*
+    /*
         Returns an with followees
         array element : int user_id, string screen_name
     */
-    public function getFollowees(){
+        public function getFollowees()
+        {
            $user = $this;
            $fullFriendList = array();
 
@@ -40,7 +38,8 @@ class User extends Eloquent
     /*
     @sumamry Returns all the followers of the user
     */
-    public function getFollowers(){
+    public function getFollowers()
+    {
         $user = $this;
 
         $fullFollowerList = array();

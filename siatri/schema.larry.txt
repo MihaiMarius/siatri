@@ -1,7 +1,16 @@
 User users;
-	id increments; primary;
     oauth_provider string 10; 
     oauth_uid text;
     oauth_token text;
     oauth_secret text;
     username text;
+    wampSession string 20; nullable;
+    total_score integer; unsigned;
+
+Game games; btmc User; 
+    active boolean;
+
+table game_user
+    game_id integer; unsigned
+    user_id integer; unsigned
+    score integer; unsigned; default 0;

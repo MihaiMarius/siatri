@@ -3,7 +3,8 @@ use \Sidney\Latchet\BaseTopic;
 
 class GameRoom extends BaseTopic {
 
-	private $users;
+	protected $games = array();
+
 
 	public function subscribe($connection, $topic)
 	{
@@ -13,15 +14,29 @@ class GameRoom extends BaseTopic {
 		$connection->cache = new StdClass;
 		$connection->cache->user = $user;
 		$username = $user->username;
-		// add user to room
-		// inspire from whatup
+		
+		if(!array_key_exists($topic, $this->games))
+			$this->games[$topic] = array();
 
-		$this->broadcast($topic, array('from' => $connection->cache->user->username, 
+		$this->games[$topic][$user->wampSession] = $user;
+
+		$this->broadcast($topic, array('from' => $username, 
 			'm' => array(
 				'mtype' => 'connect'
 			)
 		));
 
+// foreach ($this->rooms[$room_name] as $subscriber)
+//                         {
+//                                 if($subscriber->session_id != $user->session_id)
+//                                 {
+//                                         $msg = array(
+//                                                 'action' => 'newUser',
+//                                                 'user' => $subscriber->toJson()
+//                                         );
+//                                         $this->broadcast($topic, $msg, $exclude = array(), $eligible = array($user->session_id));
+//                                 }
+//                         }
 		echo "user $username subscribed";
 	}
 

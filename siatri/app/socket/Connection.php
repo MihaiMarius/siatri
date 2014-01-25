@@ -9,9 +9,9 @@ class Connection extends BaseConnection {
         //to the database
         $app = app();
         $app['db']->reconnect();
+        $session = $connection->WAMP->sessionId;
 
-
-		echo "\nuser connected\n";
+		echo "\nvalidating $session...\n";
 	}
 
 	public function close($connection)
