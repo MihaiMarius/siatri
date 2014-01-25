@@ -1,9 +1,24 @@
 .game-creation-panel-friends{
-	width:250px;
-	float:right;
+	width: 300px;
+	position: absolute;
+	right:0;
+	top:0;
 	margin-right: 8px;
 }
 
 .welcome{
 	padding : 10px;
+	width:100%;
+}
+
+.game-creation-container{
+	width: 100%;
+	box-sizing: border-box;
+	padding-right: 310px;
+	position: relative;
+}
+
+.button-checkbox{
+	float: right;
+	margin: top 7px;
 }
