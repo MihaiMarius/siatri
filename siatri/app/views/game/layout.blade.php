@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('styles')
+{{ HTML::style('css/game.css') }}
+@stop
+
 @section('scripts')
     {{ HTML::script('js/lib/autobahn.min.js') }} 
     <script>
@@ -11,34 +15,77 @@
             user: '{{$user}}'
         }, con, exists = false, syncSession = null,
 
-        sendMessage = function(msg, msgType){
-            if(typeof(msgType) == 'undefined')
-            msgType = "general";
-            var payload = {
-                mtype: msgType,
-                message: msg
-            }
-            con.publish(config.room, payload);
+        sendMessage = function(msg){
+            return msg && !(/^\s+$/.test(msg)) && con.publish(config.room, msg) || true;
         },
 
         listen = function (topic, evt){
             if(topic != config.room) return;
-            console.log('received', evt);
-
-            switch( evt.m.mtype ){
-                case 'connect':
-                    console.log('user '+evt.from+' connected');
+            if(evt.from == config.user && evt.type == "general" ) evt.type = "mine";
+            switch( evt.type ){
+                case 'status':
+                    console.log("status update", evt.msg.users);
                     break;
-                default: //simple message
-                    console.log(evt.from, 'said');
-                    console.log(evt.m.message);
+                case 'connect':
+                    evt.msg = 'User '+evt.from+' connected.'
+                    evt.from = 'System';
+                    break;
+                case 'general': //simple message
+                    // console.log(evt.from, 'said');
+                    // console.log(evt.msg);
             }
-        }
+
+            if(evt.type!="status") writeMessage(evt);
+
+        },
+        writeMessage = function(evt){
+            var type = {
+                "connect" : "panel-success",
+                "general" : "panel-info",
+                "disconnected": "panel-danger",
+                "mine" : 'panel-primary'
+            },
+            body = '<div class="panel '+type[evt.type]+'">\
+                      <div class="panel-heading ">'+evt.from+'<span class="pull-right">5:24:20</span></div>\
+                      <div class="panel-body">'+
+                       evt.msg
+                      +'</div>\
+                    </div>',
+            $log = $('#log');
+            $log.append($(body));
+            chat.autoscroll ?
+            $log[0].scrollTop = $log[0].scrollHeight:null;
+        };
+
+        $(function(){
+            var $send  = $('#send'),
+                $input = $('#input'),
+                $lock = $('#lock');
+
+            $send.on('click', function(){
+                sendMessage($input.val(), "general") && $input.val('');
+            });
+
+            $input.on('keyup', function(e){
+                e.which == 13 && sendMessage($(this).val(), "general") && $(this).val('');
+            });
+
+            $lock.on('click', function(){
+                if(chat.autoscroll){
+                    chat.autoscroll = false;
+                    $(this).removeClass('active');
+                }
+                else{
+                    chat.autoscroll = true;
+                    $(this).addClass('active');
+                }
+            })
+        });
+
 
         return { //public interface
-            con: con, // this should go in prod
-            msg: sendMessage, // this should go in prod
             config: !exists ? config : null,
+            autoscroll: true,
             init: function(session){
                 if(!exists)
                     this.con = con = session;

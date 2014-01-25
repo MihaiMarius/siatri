@@ -13,4 +13,4 @@ Game games; btmc User;
 table game_user
     game_id integer; unsigned
     user_id integer; unsigned
-    score integer; unsigned; default 0;
+    score integer; unsigned;

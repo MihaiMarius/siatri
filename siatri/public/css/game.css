@@ -1,0 +1,43 @@
+#sidebar, #chat{
+    padding-right: 0;
+    height: 100%;
+    margin-top: -208px;
+    box-sizing: border-box;
+    padding-top: 208px;
+    position: relative;
+}
+#chat{
+    padding-left: 0;
+}
+.users-header{
+    margin-bottom: 5px;
+}
+.panel{
+    max-height: 100%;
+    overflow: auto;
+}
+
+#chat > .well {
+    height: 100%;
+    position: relative;
+    padding-bottom: 65px;
+}
+#user-input{
+    position: absolute;
+    bottom: 20px;
+}
+#log{
+    height: 100%;
+    overflow: auto;
+    padding-right: 14px;
+}
+
+#log .panel-heading{
+    padding: 2px;
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+#log .panel-body{
+    padding: 10px;
+}
