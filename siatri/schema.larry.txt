@@ -14,6 +14,7 @@ table game_user
     game_id integer; unsigned
     user_id integer; unsigned
     score integer; unsigned;
+    isHost boolean; default false;
 
 Entity entities
     name string;
