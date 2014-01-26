@@ -14,3 +14,11 @@ table game_user
     game_id integer; unsigned
     user_id integer; unsigned
     score integer; unsigned;
+
+Entity entities
+    name string;
+    type string;
+
+Link links 
+    url string;
+    parsed boolean; default false;

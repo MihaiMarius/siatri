@@ -1,5 +1,6 @@
 #sidebar, #chat{
     padding-right: 0;
+    padding-left: 0;
     height: 100%;
     margin-top: -208px;
     box-sizing: border-box;
@@ -7,8 +8,20 @@
     position: relative;
 }
 #chat{
-    padding-left: 0;
+    z-index: 1;
 }
+#sidebar .panel{
+    margin-top: 20px;
+}
+@media (min-width: 768px){
+    #sidebar  {
+        padding-left: 20px;
+    }
+    #sidebar .panel{
+        margin-top: 0;
+    }
+}
+
 .users-header{
     margin-bottom: 5px;
 }

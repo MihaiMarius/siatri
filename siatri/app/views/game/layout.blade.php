@@ -24,10 +24,12 @@
             if(evt.from == config.user && evt.type == "general" ) evt.type = "mine";
             switch( evt.type ){
                 case 'status':
-                    console.log("status update", evt.msg.users);
+                    // console.log("status update", evt.msg.users);
+                    updateStatus(evt.msg.users);
                     break;
                 case 'connect':
                     evt.msg = 'User '+evt.from+' connected.'
+                    if( evt.from != config.user) writeUser(evt.from);
                     evt.from = 'System';
                     break;
                 case 'general': //simple message
@@ -55,7 +57,20 @@
             $log.append($(body));
             chat.autoscroll ?
             $log[0].scrollTop = $log[0].scrollHeight:null;
-        };
+        },
+        updateStatus = function(users){
+            for (u in users){
+                writeUser(users[u]);
+            }
+        },
+        writeUser = function(user){
+            var $userList = $('#sidebar ul'),
+                maybeHostMarkup = user == config.host ? '<span class="badge">host</span>' : user == config.user?
+                                                        '<span class="badge">you</span>'  : '';
+                userMarkup = '<li class="list-group-item" id="'+user+'">'
+                                + maybeHostMarkup + user +  '</li>';
+            $userList.append($(userMarkup));
+        }
 
         $(function(){
             var $send  = $('#send'),
@@ -78,6 +93,7 @@
                 else{
                     chat.autoscroll = true;
                     $(this).addClass('active');
+                    $('#log')[0].scrollTop = $('#log')[0].scrollHeight;
                 }
             })
         });

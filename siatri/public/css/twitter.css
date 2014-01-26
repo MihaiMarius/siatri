@@ -37,6 +37,7 @@ span.sign-in-text{
 
 
 .header {
+  margin-top: -128px;
   display: table;
   height: 100%;
   width: 100%;

@@ -2,24 +2,19 @@
 
 class SemanticController extends BaseController {
     public function testSparql( ){
-        /* configuration */ 
-        $config = array(
-          /* remote endpoint */
-          'remote_store_endpoint' => 'http://dbpedia.org/sparql',
-        );
 
-        /* instantiation */
-        $store = ARC2::getRemoteStore($config);
-        $q = 'SELECT ?airport ?iata ?name
-WHERE {
-    ?airport a dbpedia-owl:Airport ;
-             dbpedia-owl:iataLocationIdentifier ?iata ;
-             rdfs:label ?name .
-    FILTER langMatches( lang( ?name ), "EN" )
-}
-order by ?airport';
-        $rs = $store->query($q);
-        var_dump($store->getErrors());
-        dd($rs);
+        $parser = ARC2::getSemHTMLParser();
+        // $parser->parse('http://dbpedia.org/page/Tim_Berners-Lee');
+        // $parser->parse('http://dbpedia.org/page/Marc_Andreessen');
+        // $parser->parse('http://dbpedia.org/resource/United_States');
+        $parser->parse('http://dbpedia.org/page/Google');
+        $parser->extractRDF('dc ');
+
+        $triples = $parser->getTriples();
+        $rdfxml = $parser->toRDFXML($triples);
+        return $rdfxml;
+        $result = simplexml_load_string($rdfxml);
+        $bd = $result->xpath('//ns6:birthDate')[0];
+        return $bd;
     }
-}
+} 
