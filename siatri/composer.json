@@ -18,9 +18,13 @@
 	        "url": "https://github.com/thetiby/Latchet"
 	    },
 	    {
+	        "type": "vcs",
+	        "url": "https://github.com/thetiby/larry-four-generator"
+	    },
+	    {
 	         "type": "vcs",
 	         "url": "https://github.com/MihaiMarius/Laravel-Twitter"
-         }
+        }
 	],
 	"autoload": {
 		"classmap": [
