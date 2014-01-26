@@ -36,7 +36,6 @@ Latchet::topic('/game/{host}', 'GameRoom');
 
 Route::get('/','SiteController@home');
 Route::get('/logout', 'TwitterController@logout');
-Route::get('/sparql', 'SemanticController@testSparql');
 
 
 Route::get('/login', 'TwitterController@login');
@@ -54,7 +53,8 @@ Route::get('/getGameHistory', 'SiteController@getGameHistory');
 Route::get('/getOtherPlayers', 'SiteController@getOtherPlayers');
 
 
-Route::get('/test', 'AlchemyController@test');
+Route::get('/questions', 'AlchemyController@test');
+Route::get('/parse', 'SemanticController@testSparql');
 
 
 //Test Routes
