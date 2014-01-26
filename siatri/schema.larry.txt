@@ -8,18 +8,18 @@ User users;
     total_score integer; unsigned; nullable
 
 Game games; btmc User; 
-    active boolean;
+    active boolean; default 0;
 
 table game_user
     game_id integer; unsigned
     user_id integer; unsigned
     score integer; unsigned;
-    isHost boolean; default false;
+    isHost boolean; default 0;
 
-Entity entities
+Entity entities;
     name string;
     type string;
 
 Link links 
     url string;
-    parsed boolean; default false;
+    parsed boolean; default 0;
