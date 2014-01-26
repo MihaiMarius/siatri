@@ -7,8 +7,8 @@ class QuestionsManger{
 														"ns6:nationality",
 														"ns6:author",
 														"ns7:founder",
-														"ns7:inventor"   ),
-										 'Company' => => array("ns6:foundedBy",
+														"ns7:inventor" ),
+										 'Company' => array("ns6:foundedBy",
 										 						"foundingDate"));
 /*
 	Return a list of persons that have linkeddata to dbpedia
@@ -47,7 +47,7 @@ class QuestionsManger{
 		foreach ($response['entities'] as $entity) {
 			$resultEntity = array("");
 
-			foreach ($et as $t) {
+			foreach ($et as $t => $attrs ) {
 				if($entity['type'] == $t
 					&& array_key_exists('disambiguated', $entity)
 					&& array_key_exists('dbpedia', $entity['disambiguated']))
@@ -60,10 +60,7 @@ class QuestionsManger{
 						$resultEntity['subType'] = $entity['disambiguated']['subType'];
 
 					array_push($result, (object)$resultEntity);
-
 				}
-
-
 			}
 		}
 		return $result;
