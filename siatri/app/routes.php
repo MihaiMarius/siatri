@@ -54,6 +54,7 @@ Route::get('/getGameHistory', 'SiteController@getGameHistory');
 Route::get('/getOtherPlayers', 'SiteController@getOtherPlayers');
 
 
+Route::get('/test', 'AlchemyController@test');
 
 
 //Test Routes
