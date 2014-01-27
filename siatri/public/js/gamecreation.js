@@ -59,8 +59,8 @@ GameCreationVM.prototype.loadGamesHistory = function(){
 		if( data && data.success)
 		{
 			var gamesHistory = [];
-			for (var i = 0, length = _gamesHistory.length; i < length; i++) {
-				gamesHistory.push(new GameHistoryVm(_gamesHistory[i]));
+			for (var i = 0, length = data.games.length; i < length; i++) {
+				gamesHistory.push(new GameHistoryVm(data.games[i]));
 			};
 			
 			this.gameHistory(gamesHistory);
@@ -173,6 +173,8 @@ function GameCreationVM(){
 			if( data && data.success)
 			{
 				bootstrapAlert("Successfully sent invitations to selected players!", Enum.alertType.success, true);
+				var windowHref = window.location.href.split('/')[0];
+				window.location =  windowHref + "/game/room/" + vm.host().username();
 			}else{
 				bootstrapAlert("There was an error procesing your request", Enum.alertType.error, true);
 			}

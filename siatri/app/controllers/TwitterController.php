@@ -73,7 +73,6 @@ class TwitterController extends BaseController {
 			$selectedUserIds = Input::get('selectedUserIds');
 			$successfullySentInvitation = $user->tweetInvitation($selectedUserIds);
 			return Response::json(array("success" => $successfullySentInvitation));
-
 		}
 
 		public function getFriendsList(){

@@ -77,8 +77,6 @@ class User extends Eloquent
 
         if(is_array($selectedUserIds) && count($selectedUserIds) > 0)
         {
-            //32 + 40
-
             $tagNamesArray = array("");
             $index = 0;
             foreach ($selectedUserIds as $user_id) {
@@ -86,12 +84,12 @@ class User extends Eloquent
 
                 if(count($user) > 0)
                 {
-                    $userName = '@'.$user->screen_name;
+                    $userName = ' @'.$user->screen_name;
 
                     $addition = 32;
-                    if($index == 1)
+                    if($index == 0)
                     {
-                        $addition += 40;
+                        $addition += 50;
                     }
 
                     if(strlen($tagNamesArray[$index]) + strlen($userName) + $addition > 140)
@@ -100,9 +98,10 @@ class User extends Eloquent
                         array_push($tagNamesArray, '');
                     }
 
-                    $tagNamesArray[$index] .=  " ".$userName;
+                    $tagNamesArray[$index] .=  $userName;
                 }
             }
+
 
             $host = SessionManager::getAuthTwitterUser();
             $link = 'www.siatri.com/game/room/'. $host->username .'#'.str_random(30);
@@ -113,7 +112,7 @@ class User extends Eloquent
             for ($i=0; $i < $length; $i++) { 
                 $tweetMessage='';
                 if($i == 0)
-                    $tweetMessage = $appMessage . $link . " " . $tagNamesArray[$i];
+                    $tweetMessage = $appMessage . $link . $tagNamesArray[$i];
                 else 
                     $tweetMessage = $tagNamesArray[$i] .  " " . $link;
 

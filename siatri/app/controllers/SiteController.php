@@ -34,8 +34,8 @@ class SiteController extends BaseController {
 
 		if(!$user) Response::json(
 			array("success" => false)
-		);
-		$games_models = $user->games;
+			);
+			$games_models = $user->games;
 		$games = array();
 
 		foreach ($games_models as $game) {
@@ -49,28 +49,16 @@ class SiteController extends BaseController {
 			array(
 				"success" => true,
 				"games" => $games
-			)
-		);
+				)
+			);
 	}
 
 	public function createGame(){
 		$game = new Game();
-		$user = Session::get('user');
-		dd($user);
-		return Response::json(array('success' => true ));
-		
-//create game
-// and pivot for host
-		// $game = new Game();
-		// $gave->save();
-		// $user = SessionManager::getAuthTwitterUser();
-
-		// $user->games();
-		// $user->save();
-
-		 
 		$user = SessionManager::getAuthTwitterUser();
-		if($user) {
+		
+
+		if(!is_null($user)) {
 			$selectedUserIds = Input::get('selectedUserIds');
 			$successfullySentInvitation = $user->tweetInvitation($selectedUserIds);
 			return Response::json(array("success" => $successfullySentInvitation));
@@ -79,4 +67,12 @@ class SiteController extends BaseController {
 	}
 
 
+	public function testq(){
+		$question = QuestionsManger::getNextQuestion();
+		$anwears = QuestionsManger::getQuestionAnswears($question);
+
+		//var_dump($question);
+		var_dump($anwears);
+		die();
+	}
 }
