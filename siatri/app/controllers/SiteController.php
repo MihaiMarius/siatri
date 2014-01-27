@@ -34,8 +34,8 @@ class SiteController extends BaseController {
 
 		if(!$user) Response::json(
 			array("success" => false)
-		);
-		$games_models = $user->games;
+			);
+			$games_models = $user->games;
 		$games = array();
 
 		foreach ($games_models as $game) {
@@ -49,25 +49,39 @@ class SiteController extends BaseController {
 			array(
 				"success" => true,
 				"games" => $games
-			)
-		);
+				)
+			);
 	}
 
 	public function createGame(){
-		$game = new Game();
-		$game->active = true;
-		$game->save();
-
 		$user = SessionManager::getAuthTwitterUser();
-		$game->users()->attach($user->id, array('isHost' => true));
-		
-		if($user) {
-			// $selectedUserIds = Input::get('selectedUserIds');
-			// $successfullySentInvitation = $user->tweetInvitation($selectedUserIds);
-			// return Response::json(array("success" => $successfullySentInvitation));
+
+		if(!is_null($user)) {
+			$game = new Game();
+
+			$game->active = true;
+			$game->save();
+
+			$game->users()->attach($user->id, array('isHost' => true));
+			
+			foreach ($selectedUserIds as $userID) {
+				
+			}
+			
+			$selectedUserIds = Input::get('selectedUserIds');
+			$successfullySentInvitation = $user->tweetInvitation($selectedUserIds);
+			return Response::json(array("success" => $successfullySentInvitation));
 		}
 		return Response::json(array("success" => false));
 	}
 
 
+	public function testq(){
+		$question = QuestionsManger::getNextQuestion();
+		$anwears = QuestionsManger::getQuestionAnswears($question);
+
+		//var_dump($question);
+		var_dump($anwears);
+		die();
+	}
 }

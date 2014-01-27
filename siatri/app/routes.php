@@ -58,6 +58,9 @@ Route::get('/parse', 'SemanticController@testSparql');
 
 Route::get('/creategame', 'SiteController@createGame');
 
+
+Route::get('/testq', 'SiteController@testq');
+
 //Test Routes
 // Route::get('/allusers', function(){
 

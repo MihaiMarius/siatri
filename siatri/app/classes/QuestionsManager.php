@@ -10,21 +10,21 @@ class QuestionsManger{
 				"nationality" => "What is the nationality of %en?",
 				"title" => "What is the title of %en?",
 				"occupation" => "What is the occupation of %en?"
-			),
+				),
 			"inverse" => array( //answer is subject
 				"author" => "What did %en author?",
 				"foundedBy" => "What did %en found?",
 				"founder" => "What did %en found?",
 				"inventor" => "What did %en invent?"
-			)	
-		),
+				)	
+			),
 		'Company' => array(
 			"direct" => array( 
 				"foundedBy" => "Who founded %en?",
 				"foundingDate" => "When was %en founded?"
+				)
 			)
-		)
-	);
+		);
 
 	private static $AlchemyAPI;
 
@@ -82,10 +82,10 @@ class QuestionsManger{
 	// public static function getConcepts($url, $options){
 	// 	$alchemyapi = new AlchemyAPI('e74d8cd625be67883f77395f60325145923d744c');
 	// 	$dataType = 'url';
-		
+
 	// 	if(is_null($url))
 	// 		$url = "http://en.wikipedia.org/wiki/World_wide_web";
-		
+
 	// 	if(is_null($options))
 	// 		$options = array('maxRetrieve' => 50,
 	// 			'linkedData' => 1);
@@ -124,7 +124,7 @@ class QuestionsManger{
 	}
 
 	public static function parseTriplesFromURL($url){ 
-        $parser = ARC2::getRDFParser();
+		$parser = ARC2::getRDFParser();
         $rdfurl = str_replace("resource", "data", $url) . ".rdf"; // url to dbpedia .rdf file
         $parser->parse($rdfurl);
         return $parser->getTriples();
@@ -135,8 +135,8 @@ class QuestionsManger{
 		$entityProps = static::$entityTypes[$entity->type];
 		$qas = array();
 		foreach ($data as $triple) {
-		  foreach ($entityProps as $propType => $props) 
-			foreach ($props as $prop => $question) {
+			foreach ($entityProps as $propType => $props) 
+				foreach ($props as $prop => $question) {
 				if(stristr($triple['p'], $prop)){ //if the proprety is in the predicate
 					$q = str_replace("%en", $entity->name, $question);
 
@@ -149,7 +149,7 @@ class QuestionsManger{
 						$qas[$a] = (object)array(
 							'question' => $q,
 							'answer' => $a
-						);
+							);
 					}
 					elseif ($triple['o_type'] == "uri"){ // the answer is located in the URL
 						if($pretend) 
@@ -168,30 +168,49 @@ class QuestionsManger{
 											$a = $trip['o'];
 											break ;
 										}
+									}
 								}
 							}
-						}
-						if($a)
-							$qas[$a] = (object)array(
-								'question' => $q,
-								'answer' => $a
-							);
+							if($a)
+								$qas[$a] = (object)array(
+									'question' => $q,
+									'answer' => $a
+									);
 						// else throw new Exception("Didn't found answer for: ". $q ."on triple ", $triple);
-						
+
+						}
 					}
 				}
 			}
+			foreach ($qas as $qa) {
+				$nq = new Question();
+				$nq->q = $qa->question;
+				$nq->a = $qa->answer;
+				$nq->save();
+			}
+			return $qas;
 		}
-		foreach ($qas as $qa) {
-			$nq = new Question();
-			$nq->q = $qa->question;
-			$nq->a = $qa->answer;
-			$nq->save();
-		}
-		return $qas;
-	}
 
-	private static function is_date($x) {
-	    return (date('Y-m-d H:i:s', strtotime($x)) == $x);
+		private static function is_date($x) {
+			return (date('Y-m-d H:i:s', strtotime($x)) == $x);
+		}
+
+		public static function getNextQuestion(){
+			$questions = Question::all();
+			$question = $questions[rand(0, count($questions))];
+			return $question;
+		}
+		public static function getQuestionAnswears($q){
+			$answers = Question::where('q','=', $q->q)->get();
+			$result = array('q' => $q->q);
+			$answersArray = array();
+
+			foreach ($answers as $answer) {
+				array_push($answersArray, array('a' => $answer->a));
+			}
+
+			$result['answears'] = $answersArray;
+			return $result;
+
+		}
 	}
-}
