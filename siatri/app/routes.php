@@ -56,6 +56,7 @@ Route::get('/getOtherPlayers', 'SiteController@getOtherPlayers');
 
 Route::get('/test', 'AlchemyController@test');
 
+Route::get('/creategame', 'SiteController@createGame');
 
 //Test Routes
 // Route::get('/allusers', function(){

@@ -14,17 +14,6 @@ class QuestionsManger{
 	Return a list of persons that have linkeddata to dbpedia
 	@params url =  url to get the persons from
 */
-	// public static function getPersonEntities($url, $options)
-	// {
-	// 	return static::getEntities('Person', $url, $options);
-	// }
-
-	// public static function getCompanyEntities($url, $options)
-	// {
-	// 	return static::getEntities('Company', $url, $options);
-	// }
-
-
 	public static function getEntities($url, $options)
 	{
 		$alchemyapi = new AlchemyAPI('e74d8cd625be67883f77395f60325145923d744c');
