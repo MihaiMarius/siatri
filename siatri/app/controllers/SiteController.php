@@ -35,8 +35,24 @@ class SiteController extends BaseController {
 	}
 
 	public function createGame(){
-		$game = new Game();
-		return Response::json(array('success' => true ));
+		
+//create game
+// and pivot for host
+		// $game = new Game();
+		// $gave->save();
+		// $user = SessionManager::getAuthTwitterUser();
+
+		// $user->games();
+		// $user->save();
+
+		 
+		$user = SessionManager::getAuthTwitterUser();
+		if($user) {
+			$selectedUserIds = Input::get('selectedUserIds');
+			$successfullySentInvitation = $user->tweetInvitation($selectedUserIds);
+			return Response::json(array("success" => $successfullySentInvitation));
+		}
+		return Response::json(array("success" => false, "msg" => "no user"));
 	}
 
 

@@ -12,7 +12,7 @@ class User extends Eloquent
         Returns an with followees
         array element : int user_id, string screen_name
     */
-    public function getFollowees(){
+        public function getFollowees(){
            $user = $this;
            $fullFriendList = array();
 
@@ -77,23 +77,56 @@ class User extends Eloquent
 
         if(is_array($selectedUserIds) && count($selectedUserIds) > 0)
         {
-            $tagNames = '';
+            //32 + 40
+
+            $tagNamesArray = array("");
+            $index = 0;
             foreach ($selectedUserIds as $user_id) {
-                $user = User::where('oauth_uid', '=', $user_id)->first();
+                $user = (object)Twitter::usersShow($user_id);
 
                 if(count($user) > 0)
                 {
-                    $tagNames .=  '@'.$user->username;
-                }
-            }        
+                    $userName = '@'.$user->screen_name;
 
-            $tweetMessage = "Message from siatri application, click this: www.siatri.com/gamelobby " . $tagNames;
-            try{
-                Twitter::statusesUpdate($tweetMessage);
-                return true;
-            }catch(Exception $e){
-                return false;
+                    $addition = 32;
+                    if($index == 1)
+                    {
+                        $addition += 40;
+                    }
+
+                    if(strlen($tagNamesArray[$index]) + strlen($userName) + $addition > 140)
+                    {
+                        $index++;
+                        array_push($tagNamesArray, '');
+                    }
+
+                    $tagNamesArray[$index] .=  " ".$userName;
+                }
             }
+
+            $host = SessionManager::getAuthTwitterUser();
+            $link = 'www.siatri.com/game/room/'. $host->username .'#'.str_random(30);
+            $appMessage = 'Message from siatri application, click this:';
+
+            $length = count($tagNamesArray);
+
+            for ($i=0; $i < $length; $i++) { 
+                $tweetMessage='';
+                if($i == 0)
+                    $tweetMessage = $appMessage . $link . " " . $tagNamesArray[$i];
+                else 
+                    $tweetMessage = $tagNamesArray[$i] .  " " . $link;
+
+                try{
+                    Twitter::statusesUpdate($tweetMessage);
+                }catch(Exception $e){
+                    dd($e);
+                    return false;
+                }    
+
+            }
+
+            return true;
         }
 
         return false;

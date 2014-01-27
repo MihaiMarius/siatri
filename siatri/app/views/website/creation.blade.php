@@ -21,7 +21,7 @@ Siatri - Game Invitation Screen
 			</span>
 		</div>
 		<div>
-			<a id="lnkSendInvitation" onclick="postTweet()" class="btn btn-lg btn-primary">Create Game</a>
+			<a data-bind="click: createGame" id="lnkSendInvitation" class="btn btn-lg btn-primary">Create Game</a>
 		</div>
 		<hr>
 		<h4>Game History</h4>

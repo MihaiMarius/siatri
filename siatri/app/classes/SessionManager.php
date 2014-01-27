@@ -37,10 +37,6 @@ class SessionManager{
 				$user_id = static::getTwitterUserIdSession();
 				$user = User::where('oauth_uid', '=', $user_id)->first();
 
-				// var_dump($user_id);
-				// var_dump(User::all());
-				// die();
-
 				return $user;
 			}
 			return null;

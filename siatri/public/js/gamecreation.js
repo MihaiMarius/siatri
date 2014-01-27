@@ -131,73 +131,109 @@ function GameCreationVM(){
 	this.filteredFriedList = ko.computed({
 		read : function (){
 			var searchedFriendName = unwrap(this.searchedFriendName);
-				searchedFriendName = searchedFriendName && searchedFriendName.toLowerCase();
+			searchedFriendName = searchedFriendName && searchedFriendName.toLowerCase();
 
-				return result = ko.utils.arrayFilter(this.friendList(), function (friend) {
-					return !searchedFriendName 
-										|| friend.username().toLowerCase().indexOf(searchedFriendName) >= 0;
-				}.bind(this));
+			return result = ko.utils.arrayFilter(this.friendList(), function (friend) {
+				return !searchedFriendName 
+				|| friend.username().toLowerCase().indexOf(searchedFriendName) >= 0;
+			}.bind(this));
 		},
 		owner: this,
 	});
 
+	this.selectedPlayers = function(){
+		return ko.utils.arrayFilter(this.friendList(), function(friend){
+			return unwrap(friend.invite);
+		});
+	};
+
 	this.createGame = function(){
-			// logic for game creation here
-		};
-	}
+		var selectedUserIds = [];
 
-	function GameHistoryVm(data){
-		this.id = obs(data && data.id);
-		this.hostName = obs(data && data.hostName);
-		this.gameno = obs(data && data.gameno);
-		this.score = obs(data && data.score);
-		this.startDate = obs(data && data.startDate);
-		this.players = obs();
+		if (this.selectedPlayers().length < 1){
 
-		this.viewOtherPlayers = function(){
-			return true;	
+			bootstrapAlert("You must select at least one player to play a game.", Enum.alertType.error, true);
+			return;
 		}
-	};
 
-	function PlayerVm(data){
-		this.username = obs(data && data.username);
-		this.profileImageSrc = obs(data && data.profileImageSrc);
-		this.twitterUrl = obs(data && data.twitterUrl);
-		this.score = obs(data && data.score);
-
-		this.invite = obs(false);
-
-		this.spanInvitedText = ko.computed(function(){
-			if(this.invite())
-							return 'Invited';
-			return 'Not invited';
-		}, this);
-
-		this.btnInvitedClass = ko.computed(function(){
-			if(this.invite())
-				return 'btn btn-success';
-			return 'btn btn-default';
-		}, this);
-
-		this.faInviteClass = ko.computed(function(){
-			if(this.invite())
-				return 'fa fa-check-square-o';
-			return 'fa fa-square-o';
-		}, this);
-
-		this.check = function(){
-			this.invite(!this.invite());
+		var selPlayers = this.selectedPlayers();
+		for(var i in selPlayers)
+		{
+			selectedUserIds.push(unwrap(selPlayers[i].twitter_id));
 		}
+
+		callAjax({
+			url : '/creategame',
+			data:{
+				selectedUserIds : selectedUserIds
+			},
+			type:'GET',
+			dataType: 'json',
+		}).done(function (data){
+			if( data && data.success)
+			{
+				bootstrapAlert("Successfully sent invitations to selected players!", Enum.alertType.success, true);
+			}else{
+				bootstrapAlert("There was an error procesing your request", Enum.alertType.error, true);
+			}
+		}.bind(this));
+
 	};
+}
 
+function GameHistoryVm(data){
+	this.id = obs(data && data.id);
+	this.hostName = obs(data && data.hostName);
+	this.gameno = obs(data && data.gameno);
+	this.score = obs(data && data.score);
+	this.startDate = obs(data && data.startDate);
+	this.players = obs();
 
-	function init(){
-		var element  = $('#')[0];
-
-		ko.applyBindings(vm, element);
-
-		vm.load();
+	this.viewOtherPlayers = function(){
+		return true;	
 	}
+};
+
+function PlayerVm(data){
+	this.username = obs(data && data.username);
+	this.twitter_id = obs(data && data.user_id);
+	this.profileImageSrc = obs(data && data.profileImageSrc);
+	this.twitterUrl = obs(data && data.twitterUrl);
+	this.score = obs(data && data.score);
+
+	this.invite = obs(false);
+
+	this.spanInvitedText = ko.computed(function(){
+		if(this.invite())
+			return 'Invited';
+		return 'Not invited';
+	}, this);
+
+	this.btnInvitedClass = ko.computed(function(){
+		if(this.invite())
+			return 'btn btn-success';
+		return 'btn btn-default';
+	}, this);
+
+	this.faInviteClass = ko.computed(function(){
+		if(this.invite())
+			return 'fa fa-check-square-o';
+		return 'fa fa-square-o';
+	}, this);
+
+	this.check = function(){
+		this.invite(!this.invite());
+	}
+};
+
+
+function init(){
+	var element  = $('#')[0];
+
+	ko.applyBindings(vm, element);
+
+	vm.load();
+}
 
 })();
 
