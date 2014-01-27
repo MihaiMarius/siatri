@@ -44,11 +44,13 @@
                 case 'general': //simple message
                     if(evt.msg == "/start" && evt.from == config.host)
                         startGame();
+                    break;
                     // console.log(evt.from, 'said');
                     // console.log(evt.msg);
                 case 'answer':
                     evt.msg = "correct! " +evt.from + " gets 10 points";
                     evt.from = 'System';
+                    break;
                 case 'question':
                     writeQuestion(evt.msg);
 
@@ -92,18 +94,18 @@
         eraseUser = function(userName){
             $('#'+userName).remove();
         },
-        timer = null,
-        getNextQuestion = function(){
-            console.log(":))");
+        timer = null;
+        window.getNextQuestion = function(){
+            console.log("getting newxt question");
             sendMessage('/nextQuestion');
-            timer = setTimeout(getNextQuestion, 1000 * config.delay);
-        },
-        startGame = function(){
-            timer = setTimeout(getNextQuestion, 1000 * config.delay);
+            timer = setTimeout(window.getNextQuestion, 1000 * config.delay);
+        };
+        var startGame = function(){
+            timer = setTimeout(window.getNextQuestion, 1000 * config.delay);
             sendMessage('/gameStart');
         },
         writeQuestion = function(q){
-            console.log(q);
+            $('#question').html(q);
         }
 
         $(function(){

@@ -51,8 +51,8 @@ Route::filter('check', function($route, $request)
             ));
         }
 
-        if(!$activeGame-> users()->where("user_id", "=", $currentUser->id)->first())
-             return Redirect::to('/gamecreation');
+        // if(!$activeGame->users()->where("user_id", "=", $currentUser->id)->first())
+        //      return Redirect::to('/gamecreation');
      }
 });
 
