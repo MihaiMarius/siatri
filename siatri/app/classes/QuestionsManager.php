@@ -176,7 +176,7 @@ class QuestionsManger{
 								'question' => $q,
 								'answer' => $a
 							);
-						else throw new Exception("Didn't found answer for: ". $q ."on triple ", $triple);
+						// else throw new Exception("Didn't found answer for: ". $q ."on triple ", $triple);
 						
 					}
 				}

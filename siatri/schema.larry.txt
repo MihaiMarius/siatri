@@ -23,3 +23,7 @@ Entity entities;
 Link links 
     url string;
     parsed boolean; default 0;
+
+Question questions
+    q string
+    a string 
