@@ -10,9 +10,10 @@
     var chat = (function(){
 
         var config = {
-            host: 'ws://www.siatri.com:8000',
+            URL: 'ws://www.siatri.com:8000',
             room: 'game/{{$host}}',
-            user: '{{$user}}'
+            user: '{{$user}}',
+            host: '{{$host}}'
         }, con, exists = false, syncSession = null,
 
         sendMessage = function(msg){
@@ -65,8 +66,8 @@
         },
         writeUser = function(user){
             var $userList = $('#sidebar ul'),
-                maybeHostMarkup = user == config.host ? '<span class="badge">host</span>' : user == config.user?
-                                                        '<span class="badge">you</span>'  : '';
+                maybeHostMarkup = user == config.host ? '<span class="badge">host</span>' : /*user == config.user?
+                                                        '<span class="badge">you</span>'  : */ '';
                 userMarkup = '<li class="list-group-item" id="'+user+'">'
                                 + maybeHostMarkup + user +  '</li>';
             $userList.append($(userMarkup));
@@ -127,7 +128,7 @@
             } 
         }
     })();
-    chat.init(new ab.Session( chat.config.host, chat.connected, chat.disconnected, {'skipSubprotocolCheck': true } ))
+    chat.init(new ab.Session( chat.config.URL, chat.connected, chat.disconnected, {'skipSubprotocolCheck': true } ))
     </script>
 @stop
 

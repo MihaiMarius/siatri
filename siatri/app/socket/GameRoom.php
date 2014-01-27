@@ -23,18 +23,20 @@ class GameRoom extends BaseTopic {
 		$connection->cache = new StdClass;
 		$connection->cache->user = $user;
 		$connection->cache->isHost = false;
+		$connection->cache->handler = $this;
+		$connection->cache->room = $topic;
 
-		$room = $topic->getId();
+		$roomID = $topic->getId();
 
-		if(!array_key_exists($room, $this->games)){
-			$this->games[$room] = array(); 
+		if(!array_key_exists($roomID, $this->games)){
+			$this->games[$roomID] = array(); 
 			$connection->cache->isHost = true;
 		}
 
-		$this->games[$room][$user->wampSession] = $user;
+		$this->games[$roomID][$user->wampSession] = $user;
 
 		$alreadyConnected = array();
-		foreach ($this->games[$room] as $subscriber){
+		foreach ($this->games[$roomID] as $subscriber){
              if($subscriber->wampSession != $user->wampSession)
                 	$alreadyConnected[$subscriber->wampSession] = $subscriber->username;
         }
@@ -43,9 +45,8 @@ class GameRoom extends BaseTopic {
 		$this->broadcast($topic, $msg, $exclude = array(), $eligible = array($user->wampSession));
 
 
-		$username = $user->username;
-		echo "user $username subscribed; announcing...";
-		$this->broadcast($topic, $this->msg("connect", $username));
+		echo "user $user->username subscribed; announcing...\n";
+		$this->broadcast($topic, $this->msg("connect", $user->username));
 		
 	}
 
@@ -67,7 +68,21 @@ class GameRoom extends BaseTopic {
 
 	public function unsubscribe($connection, $topic)
 	{
-
+		$user = $connection->cache->user;
+		$roomID = $topic->getId();
+		// var_dump(count($this->games[$roomID]));
+		unset($this->games[$roomID][$user->wampSession]); //remove user from game
+		// var_dump(count($this->games[$roomID]));
+		echo "$user->username unsubscribed from $roomID\n";
+		if($connection->cache->isHost){
+			echo "this is a host so the game ends!";
+			unset($this->games[$roomID]);
+			$game = $user->games;//->where('is_active', '=',1);//->first();
+			if($game->first())
+				var_dump($game->first()->active);
+			else echo "GAME IS NULL";
+			echo "that  worked!";
+		}
 	}
 
 }
