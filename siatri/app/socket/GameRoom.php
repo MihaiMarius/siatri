@@ -18,7 +18,9 @@ class GameRoom extends BaseTopic {
 		// var_dump($connection->WAMP);
 		// var_dump($topic);
 		$user = User::where('wampSession','=', $connection->WAMP->sessionId)->first();
-		if(!$user) $connection->close();
+		if(!$user) {
+			$connection->close();
+		}
 
 		$connection->cache = new StdClass;
 		$connection->cache->user = $user;
@@ -30,13 +32,15 @@ class GameRoom extends BaseTopic {
 
 		if(!array_key_exists($roomID, $this->games)){
 			$this->games[$roomID] = array(); 
+			$this->games[$roomID]["started"] = false;
+			$this->games[$roomID]['users'] = array();
 			$connection->cache->isHost = true;
 		}
 
-		$this->games[$roomID][$user->wampSession] = $user;
+		$this->games[$roomID]['users'][$user->wampSession] = $user;
 
 		$alreadyConnected = array();
-		foreach ($this->games[$roomID] as $subscriber){
+		foreach ($this->games[$roomID]['users'] as $subscriber){
              if($subscriber->wampSession != $user->wampSession)
                 	$alreadyConnected[$subscriber->wampSession] = $subscriber->username;
         }
@@ -54,7 +58,24 @@ class GameRoom extends BaseTopic {
 	{
 		// $mtype = $connection->cache->isHost ? "mine" : "general";
 		// broadcast
-		$this->broadcast($topic, $this->msg("general", $connection->cache->user->username, $message));
+
+		$roomID = $topic->getId();
+		if($message == "/gameStart"){
+			$this->games[$roomID]["started"] = true;
+			$this->games[$roomID]["currentQuestion"] = "What is 2 + 2?";
+			$this->games[$roomID]["currentAnswer"] = 4;
+			$this->broadcast($topic, $this->msg("question", "system", $this->games[$roomID]["currentQuestion"]));
+		}
+		elseif($message == "/nextQuestion"){
+			$this->games[$roomID]["currentQuestion"] = "What is 2 + 3?";
+			$this->games[$roomID]["currentAnswer"] = 5;
+			$this->broadcast($topic, $this->msg("question", "system", $this->games[$roomID]["currentQuestion"]));
+		}
+		else{
+			$this->broadcast($topic, $this->msg("general", $connection->cache->user->username, $message));
+			if($this->games[$roomID]["started"] && $message == $this->games[$roomID]["currentAnswer"])
+				$this->broadcast($topic, $this->msg("answer", $connection->cache->user->username));
+		}
 		
 		// push
 		// Latchet::publish($topic->getId(), array('from' => 'push: '.$connection->WAMP->sessionId, 'msg' => $message));
@@ -71,8 +92,11 @@ class GameRoom extends BaseTopic {
 		$user = $connection->cache->user;
 		$roomID = $topic->getId();
 		// var_dump(count($this->games[$roomID]));
-		unset($this->games[$roomID][$user->wampSession]); //remove user from game
+		unset($this->games[$roomID]['users'][$user->wampSession]); //remove user from game
 		// var_dump(count($this->games[$roomID]));
+
+		$this->broadcast($topic, $this->msg("disconnect", $user->username));
+
 		echo "$user->username unsubscribed from $roomID\n";
 		if($connection->cache->isHost){
 			echo "this is a host so the game ends!";

@@ -13,7 +13,8 @@
             URL: 'ws://www.siatri.com:8000',
             room: 'game/{{$host}}',
             user: '{{$user}}',
-            host: '{{$host}}'
+            host: '{{$host}}',
+            delay: 10
         }, con, exists = false, syncSession = null,
 
         sendMessage = function(msg){
@@ -33,17 +34,33 @@
                     if( evt.from != config.user) writeUser(evt.from);
                     evt.from = 'System';
                     break;
+                case 'disconnect':
+                    if(evt.from != config.host)
+                        evt.msg = 'User '+evt.from+' disconnected.';
+                    else evt.msg = 'Host '+evt.from+' disconnected.';
+                    eraseUser(evt.from);
+                    evt.from = 'System';
+                    break;
                 case 'general': //simple message
+                    if(evt.msg == "/start" && evt.from == config.host)
+                        startGame();
                     // console.log(evt.from, 'said');
                     // console.log(evt.msg);
+                case 'answer':
+                    evt.msg = "correct! " +evt.from + " gets 10 points";
+                    evt.from = 'System';
+                case 'question':
+                    writeQuestion(evt.msg);
+
             }
 
-            if(evt.type!="status") writeMessage(evt);
+            if(evt.type!="status"  &&  evt.type != "question" ) writeMessage(evt);
 
         },
         writeMessage = function(evt){
             var type = {
                 "connect" : "panel-success",
+                "disconnect" : "panel-danger",
                 "general" : "panel-info",
                 "disconnected": "panel-danger",
                 "mine" : 'panel-primary'
@@ -71,6 +88,22 @@
                 userMarkup = '<li class="list-group-item" id="'+user+'">'
                                 + maybeHostMarkup + user +  '</li>';
             $userList.append($(userMarkup));
+        },
+        eraseUser = function(userName){
+            $('#'+userName).remove();
+        },
+        timer = null,
+        getNextQuestion = function(){
+            console.log(":))");
+            sendMessage('/nextQuestion');
+            timer = setTimeout(getNextQuestion, 1000 * config.delay);
+        },
+        startGame = function(){
+            timer = setTimeout(getNextQuestion, 1000 * config.delay);
+            sendMessage('/gameStart');
+        },
+        writeQuestion = function(q){
+            console.log(q);
         }
 
         $(function(){
