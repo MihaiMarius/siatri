@@ -77,9 +77,12 @@ class GameRoom extends BaseTopic {
 		if($connection->cache->isHost){
 			echo "this is a host so the game ends!";
 			unset($this->games[$roomID]);
-			$game = $user->games;//->where('is_active', '=',1);//->first();
-			if($game->first())
-				var_dump($game->first()->active);
+			$game = $user->games()->where('active', '=', 1)->get()->first();
+			if($game){
+				$game->active = false;
+				$game->save();
+			}
+
 			else echo "GAME IS NULL";
 			echo "that  worked!";
 		}
