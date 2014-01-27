@@ -14,13 +14,42 @@ use Illuminate\Support\MessageBag;
 
 Route::filter('check', function($route, $request)
 {
+    //host has one active game take game
+    // check if member in pivot contains current user
+
+
+
     if(!SessionManager::isAnyUserLoggedin()){ // || the user is not allowed in this game
         Session::put('redirect', $request->path());
+
+
         return Redirect::to('/login')->withErrors(
             new MessageBag(array(
-                'info' => 'You must be logged into the Siatri appliation via Twitter first!'
-            )
-        ));
+                'info' => 'You must be logged into the Siatri application via Twitter first!'
+                )
+            ));
+    }else{
+        $tokens = explode("/",$request->path());
+        $hostUsername = $tokens[count($tokens) -1];
+        $host = User::where("username", "=", $hostUsername)->first();
+        $activeGame = $host->games()->where("active", "=", true)->first();
+
+        if (!$activeGame) 
+            return Redirect::to('/login');
+
+        $currentUser = SessionManager::getAuthTwitterUser();
+
+        if(!$currentUser)
+        {
+            return Redirect::to('/login')->withErrors(
+            new MessageBag(array(
+                'info' => 'You must be logged into the Siatri application via Twitter first!'
+                )
+            ));
+        }
+
+        if(!$activeGame-> users()->where("user_id", "=", $currentUser->id)->first())
+             return Redirect::to('/gamecreation');
     }
 });
 
@@ -58,16 +87,16 @@ Route::get('/parse', 'SemanticController@testSparql');
 
 Route::get('/creategame', 'SiteController@createGame');
 
-
 Route::get('/testq', 'SiteController@testq');
 
 //Test Routes
-// Route::get('/allusers', function(){
+Route::get('/allusers', function(){
 
-// 	$users = User::all();
+	$users = User::all();
 
-// 	foreach ($users as $user ) {
-// 		var_dump($user->oauth_uid);
-// 		var_dump($user->username);
-// 	}
-// });
+	foreach ($users as $user ) {
+        // $user->delete();
+		var_dump($user->oauth_uid);
+		var_dump($user->username);
+	}
+});

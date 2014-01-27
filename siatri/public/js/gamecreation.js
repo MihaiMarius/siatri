@@ -174,7 +174,10 @@ function GameCreationVM(){
 			{
 				bootstrapAlert("Successfully sent invitations to selected players!", Enum.alertType.success, true);
 				var windowHref = window.location.href.split('/')[0];
-				window.location =  windowHref + "/game/room/" + vm.host().username();
+
+				if(data.redirectHome)
+					window.location =  windowHref;
+				window.location =  windowHref + "/game/lobby/" + vm.host().username();
 			}else{
 				bootstrapAlert("There was an error procesing your request", Enum.alertType.error, true);
 			}
@@ -185,7 +188,7 @@ function GameCreationVM(){
 
 function GameHistoryVm(data){
 	this.id = obs(data && data.id);
-	this.hostName = obs(data && data.hostName);
+	this.hostName = obs(data && data.host);
 	this.gameno = obs(data && data.gameno);
 	this.score = obs(data && data.score);
 	this.startDate = obs(data && data.startDate);

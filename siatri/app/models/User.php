@@ -104,7 +104,7 @@ class User extends Eloquent
 
 
             $host = SessionManager::getAuthTwitterUser();
-            $link = 'www.siatri.com/game/room/'. $host->username .'#'.str_random(30);
+            $link = 'www.siatri.com/game/lobby/'. $host->username .'#'.str_random(30);
             $appMessage = 'Message from siatri application, click this:';
 
             $length = count($tagNamesArray);
