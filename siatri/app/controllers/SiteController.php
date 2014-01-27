@@ -30,12 +30,33 @@ class SiteController extends BaseController {
 	}
 
 	public function getGameHistory(){
-		return Response::json(array("success" => true));
+		$user = SessionManager::getAuthTwitterUser();
 
+		if(!$user) Response::json(
+			array("success" => false)
+		);
+		$games_models = $user->games;
+		$games = array();
+
+		foreach ($games_models as $game) {
+			$stats = array( 'score' => $game->pivot->score );
+			if ($game->pivot->isHost) $stats['host'] = $user->username;
+			else $stats['host'] = $game->host();
+			$games[] = $stats;
+		}
+
+		return Response::json(
+			array(
+				"success" => true,
+				"games" => $games
+			)
+		);
 	}
 
 	public function createGame(){
 		$game = new Game();
+		$user = Session::get('user');
+		dd($user);
 		return Response::json(array('success' => true ));
 	}
 

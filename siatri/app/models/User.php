@@ -6,7 +6,7 @@ class User extends Eloquent
     public $timestamps = false;
 
     public function games(){
-        return $this->hasMany('User')->withPivot('score');
+        return $this->belongsToMany('Game')->withPivot('score', 'isHost');
     }
         /*
         Returns an with followees

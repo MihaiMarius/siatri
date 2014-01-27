@@ -1,4 +1,4 @@
-var _gamesHistory = [ {id: '1', hostName: "MihaiMarius", gameno : "50", score:"20 000", startDate : "12/12/2013"},
+var _gamesHistory = [ {id: '1', hostName: "MihaiMarius", score:"20 000"},
 {id: '1', hostName: "MihaiMarius", gameno : "50", score:"20 000", startDate : "12/12/2013"},
 {id: '1', hostName: "MihaiMarius", gameno : "50", score:"20 000", startDate : "12/12/2013"},
 {id: '1', hostName: "MihaiMarius", gameno : "50", score:"20 000", startDate : "12/12/2013"},

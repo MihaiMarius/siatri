@@ -182,6 +182,12 @@ class QuestionsManger{
 				}
 			}
 		}
+		foreach ($qas as $qa) {
+			$nq = new Question();
+			$nq->q = $qa->question;
+			$nq->a = $qa->answer;
+			$nq->save();
+		}
 		return $qas;
 	}
 
