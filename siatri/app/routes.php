@@ -56,6 +56,7 @@ Route::get('/getOtherPlayers', 'SiteController@getOtherPlayers');
 Route::get('/questions', 'AlchemyController@test');
 Route::get('/parse', 'SemanticController@testSparql');
 
+Route::get('/creategame', 'SiteController@createGame');
 
 //Test Routes
 // Route::get('/allusers', function(){

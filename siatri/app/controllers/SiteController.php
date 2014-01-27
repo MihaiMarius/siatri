@@ -34,8 +34,10 @@ class SiteController extends BaseController {
 
 	}
 
-	public function getOtherPlayers(){
-		return Response::json(array("success" => true));
-
+	public function createGame(){
+		$game = new Game();
+		return Response::json(array('success' => true ));
 	}
+
+
 }

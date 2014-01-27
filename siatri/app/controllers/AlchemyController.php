@@ -9,9 +9,5 @@ class AlchemyController extends BaseController {
         // $concepts = QuestionsManger::getConcepts($dataUrl, null);
         // $links = QuestionsManger::getLinks($dataUrl, null);
         return json_encode($personEntities);
-        // var_dump($companyEntities);
-        // var_dump($concepts);
-
-
     }
 }
