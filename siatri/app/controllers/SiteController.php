@@ -62,17 +62,25 @@ class SiteController extends BaseController {
 			$game->active = true;
 			$game->save();
 
-			$game->users()->attach($user->id, array('isHost' => true));
+			$game->users()->attach($user->id, array('isHost' => true, 'score' => 0));
 			
-			foreach ($selectedUserIds as $userID) {
-				
+			 $selectedUserIds = Input::get('selectedUserIds');
+			foreach ($selectedUserIds as $userId) {
+				$addedUser = User::where('oauth_uid', '=', $userId)->first();
+
+				if(is_null($addedUser)){
+					$addedUser = new User;
+					$addedUser->oauth_uid = $userId;
+					$addedUser->save();
+				}
+
+				$game->users()->attach($addedUser->id, array('isHost' => false, 'score' => 0));
 			}
 			
-			$selectedUserIds = Input::get('selectedUserIds');
 			$successfullySentInvitation = $user->tweetInvitation($selectedUserIds);
 			return Response::json(array("success" => $successfullySentInvitation));
 		}
-		return Response::json(array("success" => false));
+		return Response::json(array("success" => false, "redirectHome" => true));
 	}
 
 

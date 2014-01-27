@@ -49,9 +49,9 @@ class TwitterController extends BaseController {
 		@params object Object received from twitter after authentification 
 	*/
 		private function saveAuthentificatedUserDetails($accessToken){
-			$userExists = count(User::where('oauth_uid', '=', $accessToken->user_id)->get()) > 0;
+			$user = User::where('oauth_uid', '=', $accessToken->user_id)->first();
 			Session::put('user', $accessToken->screen_name);
-			if(!$userExists){
+			if(!$user){
 				$oauth_token = $accessToken->oauth_token;
 				$oauth_token_secret = $accessToken->oauth_token_secret;
 				$user_id = $accessToken->user_id;
@@ -64,6 +64,12 @@ class TwitterController extends BaseController {
 				$user->oauth_secret = $accessToken->oauth_token_secret;
 				$user->username = $accessToken->screen_name;
 
+				$user->save();
+			}else{
+				$user->oauth_provider = '';
+				$user->oauth_token = $accessToken->oauth_token;
+				$user->oauth_secret = $accessToken->oauth_token_secret;
+				$user->username = $accessToken->screen_name;
 				$user->save();
 			}		
 		}

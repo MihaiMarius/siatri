@@ -30,20 +30,12 @@ Siatri - Game Invitation Screen
 				<tr>
 					<th>Host</th>
 					<th>Score</th>
-					<th>Duration</th>
-					<th>Start Time</th>
-					<th></th>
 				</tr>
 			</thead>
 			<tbody data-bind="foreach: gameHistory">
 				<tr>
 					<td data-bind="text: hostName"></td>
-					<td data-bind="text: gameno"></td>
 					<td data-bind="text: score"></td>
-					<td data-bind="text: startDate"></td>
-					<td><button data-bind="click: viewOtherPlayers"  class="btn btn-link btn-xs" data-toggle="modal" data-target="#otherPlayersModal">
-						Other Players
-					</button></td>
 				</tr>
 			</tbody>
 		</table>
