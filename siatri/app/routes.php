@@ -28,10 +28,13 @@ Route::filter('check', function($route, $request)
                 'info' => 'You must be logged into the Siatri application via Twitter first!'
                 )
             ));
-    }else{
+    } elseif (!Request::ajax()){
         $tokens = explode("/",$request->path());
+
         $hostUsername = $tokens[count($tokens) -1];
+
         $host = User::where("username", "=", $hostUsername)->first();
+
         $activeGame = $host->games()->where("active", "=", true)->first();
 
         if (!$activeGame) 
@@ -50,7 +53,7 @@ Route::filter('check', function($route, $request)
 
         if(!$activeGame-> users()->where("user_id", "=", $currentUser->id)->first())
              return Redirect::to('/gamecreation');
-    }
+     }
 });
 
 Route::group(array('prefix' => 'game', 'before' => 'check'), function()
