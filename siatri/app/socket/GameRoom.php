@@ -54,6 +54,12 @@ class GameRoom extends BaseTopic {
 		
 	}
 
+	private function setQuestions($roomID, $handler){
+		$q = QuestionManager::getNextQuestion();
+		$ans = QuestionManager::getQuestionAnswears(q);
+		$this->games[$roomID]["currentQuestion"] = $q->q;
+		$this->games[$roomID]["currentAnswer"] = $ans;
+	}
 	public function publish($connection, $topic, $message, array $exclude, array $eligible)
 	{
 		// $mtype = $connection->cache->isHost ? "mine" : "general";

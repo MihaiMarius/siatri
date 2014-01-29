@@ -62,9 +62,9 @@
         writeMessage = function(evt){
             var type = {
                 "connect" : "panel-success",
+                "answer" : "panel-success",
                 "disconnect" : "panel-danger",
                 "general" : "panel-info",
-                "disconnected": "panel-danger",
                 "mine" : 'panel-primary'
             },
             body = '<div class="panel '+type[evt.type]+'">\
@@ -93,15 +93,15 @@
         },
         eraseUser = function(userName){
             $('#'+userName).remove();
-        },
-        timer = null;
+        };
+        window.timer = null;
         window.getNextQuestion = function(){
             console.log("getting newxt question");
             sendMessage('/nextQuestion');
-            timer = setTimeout(window.getNextQuestion, 1000 * config.delay);
+            timer = window.setTimeout(window.getNextQuestion, 1000 * config.delay);
         };
         var startGame = function(){
-            timer = setTimeout(window.getNextQuestion, 1000 * config.delay);
+            timer = window.setTimeout(window.getNextQuestion, 1000 * config.delay);
             sendMessage('/gameStart');
         },
         writeQuestion = function(q){
